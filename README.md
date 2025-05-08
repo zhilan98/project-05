@@ -1,48 +1,35 @@
-Project
+# Project-Proposal-25
+Final research code and manual
 
-# Project features:
+**Project features:**
+The de-hazing function is achieved by processing the brightness and transmittance of the image to restore the clarity of the image. This feature uses an atmospheric scattering model with adaptive transmittance estimation to achieve the de-hazing effect.
 
-- Face Morphing: using facial landmarks extracted with Mediapipe
-- General Image Morphing: using Piecewise Affine Transform from scikit-image
+**Requirements**
+To run the image de-hazing function, you first need to install Python 3.x via the Python website https://www.python.org/downloads/release/python-3119/
+Then download the libraries by “pip” to load libraries like opencv-python (cv2), numpy, scipy, Pillow (PIL), matplotlib.
+You need to write the comment 
 
----
-
-# Requirements
-
-To run morphing features(face-morphing), you will need to download Python 3.11.9:
-
-- Go to https://www.python.org/downloads/release/python-3119/ and download Python 3.11
-
-You will need to install the following libraries: opencv-python (cv2),numpy,mediapipe,matplotlib,scipy
-
-- Install Python libraries using pip:
-
-Open terminal and run the following command:
-
+```python
+pip install numpy matplotlib opencv-python scipy Pillow
 ```
-pip install numpy matplotlib opencv-python mediapipe scikit-image
-```
+in the terminal to download these libraries.
 
-# How to Run
+**How to Run**
+De-hazing feature is suggest to run by Jupyter Notebook to run.
+First, launch Jupyter Notebook.
+Run the comment 
 
-The Morphing feature is suggested to launch via Jupyter notebook:
-
-1. Launch Jupyter Notebook
-
-Open terminal and run the following command:
-
-```
+```python
 jupyter notebook
-```
+``` 
+in the terminal to open Jupyter Notebook.
+Second, open the de-hazing.ipynb file.
+Third, run each code unit in sequence.
+Fourth, Replace the input image path and output image path as needed, e.g. /User/input_image.jpg.
+Then you will get the output of the de-hazing feature.
 
-2. Open either `morphing_face.ipynb` or `morphing_image.ipynb`
-3. Run each cell in order
-4. Replace input images with your own as needed:
-   `face1.jpg`, `face2.jpg` in `morphing_face.ipynb` or
-   `example_img1.png` in `morphing_image.ipynb`
+**Tips**
+Image Size: Make sure the input image is a reasonable size. If the image size is too large, it can be resized first to improve the processing speed.
 
-# Tips
+Brightness Estimation: The defogging algorithm relies on image brightness estimation to ensure that the brightness distribution of the input image is reasonable in order to get a better defogging effect.
 
-- Ensure images are of similar size for better morphing results
-- Use frontal, well-lit face images for optimal facial landmark detection
-- RGB format is required for matplotlib; use `cv2.cvtColor(img, cv2.COLOR_BGR2RGB)` if using OpenCV
