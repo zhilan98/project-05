@@ -7,7 +7,12 @@ The de-hazing function is achieved by processing the brightness and transmittanc
 **Requirements**
 To run the image de-hazing function, you first need to install Python 3.x via the Python website https://www.python.org/downloads/release/python-3119/
 Then download the libraries by “pip” to load libraries like opencv-python (cv2), numpy, scipy, Pillow (PIL), matplotlib.
-You need to write the comment “pip install numpy matplotlib opencv-python scipy Pillow” in the terminal to download these libraries.
+You need to write the comment 
+
+```python
+pip install numpy matplotlib opencv-python scipy Pillow
+```
+in the terminal to download these libraries.
 
 **How to Run**
 De-hazing feature is suggest to run by Jupyter Notebook to run.
