@@ -183,7 +183,7 @@ def process_image(image, output_folder=None):
     show_comparison(image, results[best], "Original", f"Best: {best}")
 
 if __name__ == "__main__":
-    image_path =  "./img/deblur-3.jpg"
+    image_path =  "./img/deblur-4.jpg"
     output_folder = "enhanced_results"
     image = cv2.imread(image_path)
     width = None
