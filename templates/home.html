@@ -353,9 +353,9 @@
       const method = document.getElementById("method").value;
       const formData = new FormData();
       const submitBtn = document.getElementById("submit-btn");
-      
+
       if (!fileInput.files || fileInput.files.length === 0) {
-        showNotification('请先选择一个图片文件', 'error');
+        showNotification('Please select an image file first', 'error');
         return;
       }
       
@@ -363,14 +363,23 @@
       document.getElementById("loading").style.display = "flex";
       document.getElementById("result-section").style.display = "none";
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 处理中...';
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> processing...';
       
       // Create object URL for original image
       const originalImage = document.getElementById("original-image");
       originalImage.src = URL.createObjectURL(fileInput.files[0]);
       
-      formData.append("image", fileInput.files[0]);
+      formData.append("image1", fileInput.files[0]);
+
       formData.append("method", method);
+      const secondImageInput = document.getElementById("image2");
+      if (method === "morphing_face") {
+        if (!secondImageInput.files || secondImageInput.files.length === 0) {
+          showNotification('请上传第二张图片用于人脸变形', 'error');
+          return;
+        }
+        formData.append("image2", secondImageInput.files[0]);
+       }
 
       try {
         const response = await fetch("/process", {
@@ -379,7 +388,7 @@
         });
 
         if (!response.ok) {
-          throw new Error("处理图像时出错");
+          throw new Error("Error processing image");
         }
 
         const blob = await response.blob();
@@ -395,16 +404,16 @@
         
         // Reset button
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fas fa-magic"></i> 开始处理';
+        submitBtn.innerHTML = '<i class="fas fa-magic"></i> Start processing';
         
-        showNotification('图像处理成功!', 'success');
+        showNotification('Image processing successful!', 'success');
       } catch (error) {
-        showNotification('错误: ' + error.message, 'error');
+        showNotification('error: ' + error.message, 'error');
         document.getElementById("loading").style.display = "none";
         
         // Reset button
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fas fa-magic"></i> 开始处理';
+        submitBtn.innerHTML = '<i class="fas fa-magic"></i> Start processing';
       }
     }
     
