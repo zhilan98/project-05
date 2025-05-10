@@ -162,31 +162,47 @@ def enhance_image_quality(image):
 
     return results
 
-def process_image(image, output_folder=None):
-    # image = cv2.imread(image_path)
-    if image is None:
-        print(f" Failed to read: {image_path}")
-        return
+# def process_image(image, output_folder=None, image_name="processed_image"):
+#     results = enhance_image_quality(image)
+#     scores = {}
+#     for method, result in results.items():
+#         if method != 'original':
+#             score = evaluate_quality(result)
+#             scores[method] = score
+#             print(f"{method}: clarity score = {score:.3f}")
+#             if output_folder:
+#                 os.makedirs(output_folder, exist_ok=True)
+#                 name = os.path.splitext(os.path.basename(image_name))[0]
+#                 cv2.imwrite(os.path.join(output_folder, f"{name}_{method}.png"), result)
+#     best = max(scores, key=scores.get)
+#     print(f" Best method: {best}")
+#     show_comparison(image, results[best], "Original", f"Best: {best}")
+
+# def process_image_before(image, output_folder=None, width=None, height=None):
+#     if image is None:
+#         print(f"❌ Failed to read: {image}")
+#         return
+#     image = resize_image(image, width, height)
+#     process_image(image, output_folder)
+
+def deblur_process_image(image, output_folder=None, image_name="processed_image"):
     results = enhance_image_quality(image)
     scores = {}
+
     for method, result in results.items():
         if method != 'original':
             score = evaluate_quality(result)
             scores[method] = score
             print(f"{method}: clarity score = {score:.3f}")
+
             if output_folder:
                 os.makedirs(output_folder, exist_ok=True)
-                name = os.path.splitext(os.path.basename(image_path))[0]
-                cv2.imwrite(os.path.join(output_folder, f"{name}_{method}.png"), result)
-    best = max(scores, key=scores.get)
-    print(f" Best method: {best}")
-    show_comparison(image, results[best], "Original", f"Best: {best}")
+                name = os.path.splitext(image_name)[0]
+                output_path = os.path.join(output_folder, f"{name}_{method}.png")
+                cv2.imwrite(output_path, result)
 
-if __name__ == "__main__":
-    image_path =  "./img/deblur-4.jpg"
-    output_folder = "enhanced_results"
-    image = cv2.imread(image_path)
-    width = None
-    height = None
-    image = resize_image(image, width, height)
-    process_image(image, output_folder)
+    best = max(scores, key=scores.get)
+    print(f"✅ Best method: {best}")
+
+    show_comparison(image, results[best], "Original", f"Best: {best}")
+    return results[best]  

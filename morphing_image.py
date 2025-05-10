@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import cv2
 from skimage.transform import resize
 
-def piecewise_affine_warp(img, mode='sine', strength=10, grid_size=8, show=True):
+def piecewise_affine_warp(image_path, mode='sine', strength=10, grid_size=8, show=True):
     """
     Apply piecewise affine warp to an image with different deformation modes.
 
@@ -18,6 +18,7 @@ def piecewise_affine_warp(img, mode='sine', strength=10, grid_size=8, show=True)
     Returns:
         warped image (same shape as input)
     """
+    img = cv2.imread(image_path)
     img = transform.resize(img, (img.shape[0], img.shape[1]), anti_aliasing=True)
 
     rows, cols = grid_size, grid_size
@@ -66,14 +67,14 @@ def visualize_affine_result(original, warped, mode_name=''):
     plt.show()
 
 
-# Load image with OpenCV
-img = cv2.imread('example_img1.png')
-img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Convert to RGB
-img = resize(img, (256, 256))  # Resize to standard size
+# # Load image with OpenCV
+# img = cv2.imread('example_img1.png')
+# img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # Convert to RGB
+# img = resize(img, (256, 256))  # Resize to standard size
 
-# Apply different warp modes
-piecewise_affine_warp(img, mode='sine')
+# # Apply different warp modes
+# piecewise_affine_warp(img, mode='sine')
 
-piecewise_affine_warp(img, mode='wave_x', strength=40, grid_size=30)
+# piecewise_affine_warp(img, mode='wave_x', strength=40, grid_size=30)
 
-piecewise_affine_warp(img, mode='zoom', strength=40, grid_size=30)
+# piecewise_affine_warp(img, mode='zoom', strength=40, grid_size=30)

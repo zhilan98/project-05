@@ -27,23 +27,10 @@ def dehaze(image, transmission, airlight, size=15):
     return np.clip(result, 0, 255).astype(np.uint8)
 
 # main function
-def main(image_path):
+def dehaze_image(image_path):
     image = Image.open(image_path)
     brightness = estimate_brightness(image)
-    
-    # Assuming atmospheric light is the image's maximum
     airlight = np.max(np.array(image.convert('RGB')), axis=(0, 1))
-    
-    # Estimated transmittance
-    transmission = estimate_transmission(image, brightness, alpha=0.7)
-    
-    # Recovery of de-fogged images using atmospheric scattering models
-    dehazed_image = dehaze(image, transmission, airlight)
-    result_img = Image.fromarray(dehazed_image)
-    
-    result_img.show()
-    result_img.save('/Users/ruoyan/Desktop/Master/Year1-Sem1/COMP5405-Digital Media Computing/Project/output.jpg')
-
-# Run the main function
-if __name__ == "__main__":
-    main('/Users/ruoyan/Desktop/Master/Year1-Sem1/COMP5405-Digital Media Computing/Project/image2.png')
+    transmission = estimate_transmission(image, brightness)
+    dehazed_array = dehaze(image, transmission, airlight)
+    return Image.fromarray(dehazed_array)

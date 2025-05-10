@@ -94,17 +94,18 @@ def display_morph_sequence(img1, img2, points1, points2, triangles, num_frames=1
     plt.tight_layout()
     plt.show()
 
-# Load images
-img1 = load_and_resize_image('face2.jpg')
-img2 = load_and_resize_image('face3.jpg')
+def morphing_face(image_path1, image_path2, alpha=0.5):
+    """
+    image_path1: 源图像路径（上传的）
+    image_path2: 目标图像路径（要 morph 到的脸）
+    alpha: 融合程度（0~1）
+    """
+    img1 = load_and_resize_image(image_path1)
+    img2 = load_and_resize_image(image_path2)
 
-# Extract landmarks
-points1 = get_landmarks(img1)
-points2 = get_landmarks(img2)
+    points1 = get_landmarks(img1)
+    points2 = get_landmarks(img2)
+    triangles = delaunay_triangulation(points1)
 
-# Get Delaunay triangles
-triangles = delaunay_triangulation(points1)
-
-# Display morphing sequence
-show_morph_result(img1, img2, points1, points2, triangles, alpha=0.8)
-display_morph_sequence(img1, img2, points1, points2, triangles, num_frames=10)
+    result = morph_image(img1, img2, points1, points2, triangles, alpha)
+    return result
