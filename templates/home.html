@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>图像处理选择器</title>
+  <title>Image Processing Selector</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <style>
     :root {
@@ -375,7 +375,7 @@
       const secondImageInput = document.getElementById("image2");
       if (method === "morphing_face") {
         if (!secondImageInput.files || secondImageInput.files.length === 0) {
-          showNotification('请上传第二张图片用于人脸变形', 'error');
+          showNotification('Please upload the target image for face deformation', 'error');
           return;
         }
         formData.append("image2", secondImageInput.files[0]);

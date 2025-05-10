@@ -23,7 +23,7 @@ def home():
 
 @app.route('/process', methods=['POST'])
 def process_image():
-    saved_filename = None  # 🟡 初始化文件名变量
+    saved_filename = None
 
     file = request.files['image']
     method = request.form['method']
@@ -62,7 +62,7 @@ def process_image():
             saved_filename = f"{original_name}_morphimg.jpg"
             cv2.imwrite(os.path.join(OUTPUT_FOLDER, saved_filename), processed)
 
-        # ✅ 输出保存成功的文件名（调试或记录用途）
+        # Output the file name of the successful save (for debugging or logging purposes)
         if saved_filename:
             print(f"图像已保存为：{saved_filename}")
 
@@ -71,7 +71,7 @@ def process_image():
         return send_file(BytesIO(buf.tobytes()), mimetype='image/jpeg')
 
     except Exception as e:
-        return f"图像处理出错：{str(e)}", 500
+        return f"Image processing error：{str(e)}", 500
 
 if __name__ == '__main__':
     app.run(debug=True)
