@@ -34,7 +34,7 @@ def show_comparison(original, enhanced, title1="Original", title2="Enhanced"):
     plt.title(title2)
     plt.axis('off')
     plt.tight_layout()
-    plt.show()
+    #plt.show()
 
 def clahe_then_sharpen(image, strength=1.8, sigma=1.0):
     lab = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
